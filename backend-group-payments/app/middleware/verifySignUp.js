@@ -3,32 +3,41 @@ const User = db.user;
 
 
 checkDuplicateUser = (req, res, next) => {
-    if (User.findOne({username: req.body.username}, function(err,result){
-        if (err){
-            res.status(500).send({message: err});
-            return;
+    User.findOne({
+        username: req.body.username
+      }).exec((err, user) => {
+        if (err) {
+          res.status(500).send({ message: err });
+          return;
         }
-        if (result){
-            res.status(400).send({message: "Username already exists"});
-            return;
+    
+        if (user) {
+          res.status(400).send({ message: "Failed! Username is already in use!" });
+          return;
         }
-    }))
-    if (User.findOne({email: req.body.email}, function(err,result){
-        if (err){
-            res.status(500).send({message: err});
+    
+        // Email
+        User.findOne({
+          email: req.body.email
+        }).exec((err, user) => {
+          if (err) {
+            res.status(500).send({ message: err });
             return;
-        }
-        if (result){
-            res.status(400).send({message: "Email already exists"});
+          }
+    
+          if (user) {
+            res.status(400).send({ message: "Failed! Email is already in use!" });
             return;
-        }
-    }))
-    next();
-};
+          }
+    
+          next();
+        });
+      });
+    };
 
 
 const verifySignUp = {
-    checkDuplicateUsernameOrEmail
+    checkDuplicateUser
   };
   
 module.exports = verifySignUp;
