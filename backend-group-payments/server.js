@@ -1,12 +1,19 @@
 const express = require("express");
 const cors = require("cors");
-
+require('dotenv').config()
 const app = express();
 
-var corsOptions = {
-    origin: "http://localhost:3000"
-  };
+// var corsOptions = {
+//     origin: "http://localhost:3000"
+//   };
 
+const corsOptions ={
+     origin:'*', 
+     credentials:true,            //access-control-allow-credentials:true
+     optionSuccessStatus:200,
+  }
+  
+  app.use(cors(corsOptions))
 app.use(cors(corsOptions));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -25,7 +32,7 @@ const db = require("./app/models");
 const User = db.user
 
 db.mongoose
-  .connect("mongodb+srv://seconduser:F0udApcF0PCdmIIi@cluster0.vr65f.mongodb.net/myFirstDatabase?retryWrites=true&w=majority", {
+  .connect("mongodb+srv://"+process.env.USER+":"+process.env.PASSWORD+"@cluster0.vr65f.mongodb.net/myFirstDatabase?retryWrites=true&w=majority", {
     useNewUrlParser: true,
     useUnifiedTopology: true
   })
