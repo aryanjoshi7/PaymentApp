@@ -26,7 +26,7 @@ const signup = (req, res) => {
 };
 const signin = async (req, res) => {
     const founduser = await User.findOne({username: req.body.username});
-    console.log(req.body.password)
+    console.log(founduser.password)
     if (founduser.password){
         //var samepass = bcrypt.compareSync(req.body.password, founduser.password);
         if (founduser.password == req.body.password){
@@ -49,7 +49,7 @@ const signin = async (req, res) => {
     }
 };
 
-
+//addMember = (req,res)
 module.exports = {
     signup,
     signin

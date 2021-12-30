@@ -9,7 +9,7 @@ module.exports = function(app) {
     );
     next();
   });
-
+  //app.get("/api/group/:id",[authJwt.verifyToken],[authJwt.verifyMember])
   app.get("/api/test/all", controller.allAccess);
 
   app.get("/api/test/user", [authJwt.verifyToken], controller.userBoard);

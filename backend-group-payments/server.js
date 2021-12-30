@@ -30,7 +30,7 @@ app.listen(PORT, () => {
   
 const db = require("./app/models");
 const User = db.user
-
+//const Group = db.group
 db.mongoose
   .connect("mongodb+srv://"+process.env.USER+":"+process.env.PASSWORD+"@cluster0.vr65f.mongodb.net/myFirstDatabase?retryWrites=true&w=majority", {
     useNewUrlParser: true,
@@ -38,11 +38,28 @@ db.mongoose
   })
   .then(() => {
     console.log("Successfully connect to MongoDB.");
-    
+    //initial()
   })
   .catch(err => {
     console.error("Connection error", err);
     process.exit();
   });
+// async function initial () {
+//   const initialmem = ["firstuser"]
+  
+//       new Group({
+//         key: "firstgroup",members: initialmem
+//       }).save(err => {
+//         if (err) {
+//           console.log("error", err);
+//         }
+//         else{
+//         console.log("added 'user' to roles collection");
+//         }
+//       });
+
+
+
+
 
 

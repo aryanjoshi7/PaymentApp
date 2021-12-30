@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import AuthService from "../services/auth.service";
-
+import Creategroupbutton from "./creategroupbutton"
 export default class Profile extends Component {
   constructor(props) {
     super(props);
@@ -33,6 +33,7 @@ export default class Profile extends Component {
           <strong>Email:</strong>{" "}
           {currentUser.email}
         </p>
+        <Creategroupbutton/>
       </div>
     );
   }
