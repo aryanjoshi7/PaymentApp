@@ -1,3 +1,4 @@
+const { verifySignUp } = require("../middleware");
 const { authJwt } = require("../middleware");
 const controller = require("../controllers/user.controller");
 
@@ -9,9 +10,11 @@ module.exports = function(app) {
     );
     next();
   });
-  //app.get("/api/group/:id",[authJwt.verifyToken],[authJwt.verifyMember])
+  app.post("/api/creategroup",[verifySignUp.checkDuplicateGroup],controller.createGroup)
   app.get("/api/test/all", controller.allAccess);
 
-  app.get("/api/test/user", [authJwt.verifyToken], controller.userBoard);
+  app.get("/api/test/user", authJwt.verifyToken);
+  app.get("/api/test/userss", authJwt.verifyToken);
+  app.get("/api/group/thisgroup", [verifySignUp.checkMember],controller.allAccess);
   
 };
